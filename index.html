@@ -1,0 +1,2052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILLUSIVE - Fear No Art Tee</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            background-color: #000;
+            color: white;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        a {
+            text-decoration: none;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Audio Player Styles */
+        .audio-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 300px;
+            background: rgba(0,0,0,0.8);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .audio-info {
+            padding: 10px;
+            background: #111;
+            font-size: 12px;
+        }
+        .audio-title {
+            font-weight: bold;
+            color: white;
+            margin-bottom: 3px;
+            font-size: 14px;
+        }
+        .audio-artist {
+            color: #ccc;
+            font-size: 12px;
+        }
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+        }
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 8px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-size: 20px;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        nav a {
+            color: #ccc;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: white;
+        }
+        .shop-btn {
+            background: white;
+            color: black;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: bold;
+            margin-left: 30px;
+            transition: all 0.3s;
+        }
+        .shop-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+        }
+        /* Cart Icon */
+        .cart-icon {
+            position: relative;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        /* Admin Login Link */
+        .admin-link {
+            color: #ff6b6b;
+            margin-left: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .admin-link:hover {
+            color: #ff8e8e;
+        }
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero-motto {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            line-height: 1.4;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background: white;
+            color: black;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+        .btn-secondary:hover {
+            background: white;
+            color: black;
+        }
+        /* Collection Section */
+        .collection {
+            padding: 100px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .product {
+            background: #111;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .product:hover {
+            transform: translateY(-10px);
+        }
+        .product-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+        .product h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .product-price {
+            color: #ccc;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .new-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: white;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        /* Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #111;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .close-btn {
+            font-size: 24px;
+            cursor: pointer;
+            color: #ccc;
+        }
+        .close-btn:hover {
+            color: white;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .product-details h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        .product-price-large {
+            font-size: 1.8rem;
+            color: #ccc;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .product-description {
+            color: #ccc;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .size-selector, .color-selector {
+            margin-bottom: 20px;
+        }
+        .selector-title {
+            color: white;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .size-options, .color-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .size-option, .color-option {
+            padding: 10px 15px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .size-option:hover, .color-option:hover {
+            background: #333;
+        }
+        .size-option.selected, .color-option.selected {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            padding: 0;
+        }
+        .black { background: #000; }
+        .white { background: #fff; }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .quantity-btn {
+            background: #222;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .quantity {
+            width: 60px;
+            text-align: center;
+            background: #222;
+            color: white;
+            border: none;
+            height: 40px;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .add-to-cart-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .add-to-cart-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+        /* Shopping Cart */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: #111;
+            z-index: 1500;
+            transition: right 0.3s ease;
+            border-left: 1px solid #333;
+            overflow-y: auto;
+        }
+        .cart-sidebar.open {
+            right: 0;
+        }
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .cart-items {
+            padding: 20px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #333;
+        }
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-right: 15px;
+        }
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        .cart-item-name {
+            color: white;
+            margin-bottom: 5px;
+        }
+        .cart-item-details {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .cart-item-price {
+            color: #ccc;
+            font-weight: bold;
+        }
+        .cart-item-remove {
+            color: #ccc;
+            cursor: pointer;
+        }
+        .cart-item-remove:hover {
+            color: white;
+        }
+        .cart-total {
+            padding: 20px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .cart-total-amount {
+            font-weight: bold;
+        }
+        .cart-actions {
+            padding: 20px;
+        }
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        .checkout-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+        /* Checkout Modal */
+        .checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        .checkout-content {
+            background: #111;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #333;
+        }
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+        .checkout-body {
+            padding: 20px;
+        }
+        .checkout-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+        }
+        .order-summary {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .order-items {
+            margin-bottom: 20px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            padding-top: 10px;
+            border-top: 1px solid #444;
+        }
+        .place-order-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+        .place-order-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+        /* Stripe Payment Section */
+        .stripe-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            border: 1px dashed #555;
+        }
+        .stripe-section h3 {
+            color: white;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .stripe-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #635bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .stripe-button:hover {
+            background: #524ce6;
+        }
+        .bank-transfer {
+            margin-top: 30px;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+        }
+        .bank-transfer h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        .bank-transfer p {
+            color: #ccc;
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+        /* Story Section */
+        .story {
+            padding: 100px 0;
+            background: #111;
+        }
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #000;
+            padding: 50px;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        .story h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .story p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        .principles {
+            margin-top: 40px;
+        }
+        .principle {
+            display: flex;
+            align-items: flex-start;
+            background: #222;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .principle-number {
+            width: 50px;
+            height: 50px;
+            background: white;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .principle-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        /* About Section */
+        .about {
+            padding: 100px 0;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        .feature {
+            text-align: center;
+            padding: 40px 30px;
+            background: #111;
+            border-radius: 15px;
+            border: 1px solid #333;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .feature h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        .feature p {
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 60px;
+        }
+        .style-item {
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            transition: transform 0.3s;
+        }
+        .style-item:hover {
+            transform: scale(1.03);
+        }
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: #111;
+        }
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: white;
+        }
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        .contact-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            color: black;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .contact-text h4 {
+            margin-bottom: 5px;
+            color: white;
+        }
+        .contact-text p {
+            color: #ccc;
+        }
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s;
+        }
+        .social-link:hover {
+            background: white;
+            color: black;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+        }
+        .contact-form textarea {
+            height: 150px;
+            resize: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.2);
+        }
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .cta p {
+            font-size: 1.2rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        .cta-form {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px;
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 30px;
+            color: white;
+            font-size: 16px;
+        }
+        .email-input:focus {
+            outline: none;
+            border-color: white;
+        }
+        .join-btn {
+            background: white;
+            color: black;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .join-btn:hover {
+            transform: scale(1.05);
+        }
+        .privacy {
+            margin-top: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        /* Footer */
+        footer {
+            padding: 80px 0 30px;
+            border-top: 1px solid #333;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .footer-about {
+            grid-column: span 2;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .footer-logo-icon {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 6px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+        }
+        .footer-about p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        .footer-links h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            display: block;
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: white;
+        }
+        .copyright {
+            text-align: center;
+            color: #444;
+            font-size: 0.9rem;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            nav {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            nav a {
+                margin: 0 10px;
+            }
+            .shop-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .hero-motto {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .story-content {
+                padding: 30px;
+            }
+            .cta-form {
+                flex-direction: column;
+            }
+            .footer-about {
+                grid-column: span 1;
+            }
+            .audio-player {
+                width: 250px;
+                bottom: 10px;
+                right: 10px;
+            }
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            .checkout-content {
+                width: 95%;
+            }
+        }
+        .auto-style2 {
+            font-family: "and the door creeeaked";
+            font-weight: normal;
+            font-size: xx-large;
+        }
+        .auto-style3 {
+            font-family: Verdana, Geneva, Tahoma, sans-serif, "And The Door Creeeaked";
+        }
+        .auto-style4 {
+            font-family: "And The Door Creeeaked";
+            font-size: xx-large;
+        }
+        .auto-style5 {
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            color: white;
+        }
+        .auto-style6 {
+            font-family: "And The Door Creeeaked";
+        }
+        .auto-style7 {
+            font-size: x-large;
+        }
+        .auto-style8 {
+            font-family: "And The Door Creeeaked";
+            font-size: x-large;
+        }
+        .auto-style9 {
+            font-size: xx-large;
+        }
+
+        /* Admin Modal Styles */
+        .modal-admin {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-content {
+            background: #111;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid #333;
+            padding: 30px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .admin-header h2 {
+            color: white;
+            margin: 0;
+        }
+        .admin-form-group {
+            margin-bottom: 20px;
+        }
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: white;
+        }
+        .admin-form-group input {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+        }
+        .admin-error {
+            color: #ff6b6b;
+            margin-top: 10px;
+            display: none;
+        }
+        .admin-btn {
+            width: 100%;
+            padding: 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+        .admin-btn:hover {
+            background: #ff8e8e;
+        }
+        /* Admin Dashboard */
+        #adminDashboard {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .dashboard-content {
+            background: #111;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid #333;
+            padding: 40px;
+        }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .dashboard-header h2 {
+            color: white;
+            margin: 0;
+        }
+        .logout-btn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .dashboard-section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #222;
+            border-radius: 10px;
+        }
+        .dashboard-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        .bank-details {
+            background: #000;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ff6b6b;
+        }
+        .bank-details p {
+            color: #ccc;
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+        .site-status {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .site-status span {
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        .site-status .active {
+            color: #4ade80;
+        }
+        .toggle-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .toggle-btn.lock {
+            background: #ff6b6b;
+            color: white;
+        }
+        .toggle-btn.unlock {
+            background: #4ade80;
+            color: black;
+        }
+        .toggle-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body style="background-attachment: fixed">
+    <!-- Spotify Player -->
+    <div class="audio-player">
+        <div class="audio-info">
+            <div class="audio-title">Lucki - Heavy on My Heart</div>
+            <div class="audio-artist">ILLUSIVE x Atlanta Vibes</div>
+        </div>
+        <iframe style="border-radius:0" src="https://open.spotify.com/embed/track/1LceL8vpL1OYTH2xfIKvqd?utm_source=generator" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" target="_blank"></iframe>
+    </div>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">T</div>
+                </a>
+                <a href="#" class="auto-style5">
+                    <span class="auto-style4">ILLUSIVE
+                </span>
+                </a>
+                <nav>
+                    <a href="#collection">Collection</a>
+                    <a href="#story">Story</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                    <a href="#" class="shop-btn">Shop Now</a>
+                    <a href="#" class="admin-link" id="adminLoginLink">Admin</a>
+                    <div class="cart-icon" id="cartIcon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <div class="cart-count">0</div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="auto-style2">ILLUSIVE</h1>
+            <div class="hero-motto"><span class="auto-style3">keep it exclusive<br></span>stay<span class="auto-style7"> </span><span class="auto-style6"><span class="auto-style9"><strong>illusive</strong></span></span></div>
+            <p>Fear No Art Tee — The only piece. For those who wear silence as power.</p>
+            <div class="hero-btns">
+                <a href="#collection" class="btn btn-primary">View Product</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="collection">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Current Offering</h2>
+                <p class="section-subtitle">One product. One statement. No distractions.</p>
+            </div>
+            <div class="products">
+                <div class="product" data-id="1" data-name="Fear No Art Tee" data-price="280" data-image="WhatsApp%20Image%202025-09-02%20at%2022.20.32_1e436a2e.jpg">
+                    <div class="product-img-container">
+                        <img src="WhatsApp%20Image%202025-09-02%20at%2022.20.32_1e436a2e.jpg" alt="Fear No Art Tee" class="product-img" style="height: 100%">
+                        <div class="new-badge">NEW</div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Fear No Art Tee</h3>
+                        <div class="product-price">P280</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalProductName">Fear No Art Tee</h2>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img id="modalProductImage" class="modal-img" src="WhatsApp%20Image%202025-09-02%20at%2022.20.32_1e436a2e.jpg" alt="Fear No Art Tee">
+                <div class="product-details">
+                    <div class="product-price-large" id="modalProductPrice">P280</div>
+                    <p class="product-description">Our signature black-and-white tee. Minimalist design. Maximum impact. Crafted for those who don’t need to speak to be heard.</p>
+                    <div class="size-selector">
+                        <div class="selector-title">Size</div>
+                        <div class="size-options">
+                            <div class="size-option" data-size="S">S</div>
+                            <div class="size-option" data-size="M">M</div>
+                            <div class="size-option" data-size="L">L</div>
+                            <div class="size-option" data-size="XL">XL</div>
+                            <div class="size-option" data-size="XXL">XXL</div>
+                        </div>
+                    </div>
+                    <div class="color-selector">
+                        <div class="selector-title">Color</div>
+                        <div class="color-options">
+                            <div class="color-option black" data-color="Black"></div>
+                            <div class="color-option white" data-color="White"></div>
+                        </div>
+                    </div>
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" id="decreaseQty">-</button>
+                        <input type="text" class="quantity" id="quantity" value="1" readonly>
+                        <button class="quantity-btn" id="increaseQty">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" id="addToCartBtn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <span class="close-btn" id="closeCart">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-total">
+            <div class="cart-total-row">
+                <span>Subtotal</span>
+                <span class="cart-total-amount" id="cartSubtotal">P0</span>
+            </div>
+            <div class="cart-total-row">
+                <span>Shipping</span>
+                <span id="cartShipping">Free</span>
+            </div>
+            <div class="cart-total-row">
+                <span>Total</span>
+                <span class="cart-total-amount" id="cartTotal">P0</span>
+            </div>
+        </div>
+        <div class="cart-actions">
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Checkout</h2>
+                <span class="close-btn" id="closeCheckout">&times;</span>
+            </div>
+            <div class="checkout-body">
+                <form class="checkout-form" id="checkoutForm">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="zip">ZIP Code</label>
+                        <input type="text" id="zip" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <select id="country" required>
+                            <option value="">Select Country</option>
+                            <option value="Botswana">Botswana</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Zimbabwe">Zimbabwe</option>
+                            <option value="Namibia">Namibia</option>
+                            <option value="Zambia">Zambia</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="order-summary">
+                        <h3>Order Summary</h3>
+                        <div class="order-items" id="orderItems">
+                            <!-- Order items will be added here -->
+                        </div>
+                        <div class="order-total">
+                            <span>Total</span>
+                            <span id="orderTotal">P0</span>
+                        </div>
+                    </div>
+
+                    <!-- Stripe Payment Section -->
+                    <div class="stripe-section">
+                        <h3>Pay Securely with Credit Card</h3>
+                        <p>Click the button below to be redirected to our secure payment gateway.</p>
+                        <button type="button" class="stripe-button" id="stripeButton">Pay P0 Now</button>
+                    </div>
+
+                    <!-- Bank Transfer Details -->
+                    <div class="bank-transfer">
+                        <h3>Or Pay via Bank Transfer</h3>
+                        <p><strong>Account Holder:</strong> TROY MOTHEI ANDERSON</p>
+                        <p><strong>Account Number:</strong> 9060005912542</p>
+                        <p><strong>Branch Code:</strong> 065167</p>
+                        <p style="margin-top: 15px;">After transferring, please email your proof of payment to <strong>info@illusivebotswana.com</strong>.</p>
+                    </div>
+
+                    <button type="submit" class="place-order-btn">Place Order (Bank Transfer)</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story Section -->
+    <section id="story" class="story">
+        <div class="container">
+            <div class="story-content">
+                <h2>The Atlanta Influence</h2>
+                <p>I remember the first time I came across Quan. It wasn't just the way he dressed or the way his videos looked—it was the energy. Quan had this quiet confidence, like he didn't need to scream for attention, but the whole room still turned when he walked in. When I found out he had built his own brand, Kozy, it hit me differently.</p>
+                <p>Kozy wasn't just clothes—it was a statement. The way Quan carried it made me realize that a brand could be more than just fabric and prints. It could represent a mindset, a lifestyle, a whole movement. Seeing someone from Atlanta, someone who didn't wait for approval from the fashion industry, but instead created his own lane, made me think: Why not me too?</p>
+                <p>What inspired me most wasn't just the success of Kozy, but the story behind it. Quan built it by staying true to his style and vision, even when people doubted him or called it trash. He didn't fold—he doubled down. That resilience showed me that a brand doesn't have to please everyone; it just has to speak to the people who really feel it.</p>
+                <p>That's when I decided to start my own clothing line. Quan gave me the blueprint without even knowing it:</p>
+                <div class="principles">
+                    <div class="principle">
+                        <div class="principle-number">1</div>
+                        <div class="principle-content">
+                            <h3>Be authentic</h3>
+                            <p>Don't chase trends—set them. Your vision matters more than anyone else's opinion.</p>
+                        </div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-number">2</div>
+                        <div class="principle-content">
+                            <h3>Build a community</h3>
+                            <p>Your brand should be a family, not just customers. Real connections create real impact.</p>
+                        </div>
+                    </div>
+                    <div class="principle">
+                        <div class="principle-number">3</div>
+                        <div class="principle-content">
+                            <h3>Stay consistent</h3>
+                            <p>Even when the noise gets loud, focus on the vision. Success comes to those who persist.</p>
+                        </div>
+                    </div>
+                </div>
+                <p>Now, every time I work on my designs, I think back to that moment. Watching Quan build Kozy wasn't just entertainment for me—it was a spark. It showed me that if you believe in your vision and put in the work, you can turn an idea into a brand, and a brand into a movement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The <span class="auto-style4">Illusive</span> Aesthetic</h2>
+                <p class="section-subtitle">Black and white. Minimalist design. Maximum impact. Inspired by Atlanta's streetwear legacy and the confidence of those who don't need validation.</p>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📅</div>
+                    <h3>Y2K Revival</h3>
+                    <p>Drawing from early 2000s Atlanta streetwear aesthetics with modern minimalism.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚫⚪</div>
+                    <h3>Black & White</h3>
+                    <p>Our signature color scheme represents contrast, balance, and timeless style.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Exclusive Mindset</h3>
+                    <p>Illusive isn't for everyone. It's for those who understand true style needs no validation.</p>
+                </div>
+            </div>
+            <!-- Style Grid -->
+            <div class="style-grid">
+                <div class="style-item">
+                    <img alt="" src="WhatsApp%20Image%202025-09-02%20at%2022.20.32_9e98a769.jpg" style="height: 60%" width="60%">
+                </div>
+                <div class="style-item">
+                    <img alt="" src="WhatsApp%20Image%202025-09-02%20at%2022.20.33_ae6ab8a1.jpg" style="height: 60%" width="60%">
+                </div>
+                <div class="style-item">
+                    <img alt="" src="WhatsApp%20Image%202025-09-04%20at%2016.02.51_bc7a760b.jpg" style="height: 60%" width="60%">
+                </div>
+                <div class="style-item">
+                    <img alt="" src="WhatsApp%20Image%202025-09-04%20at%2016.04.22_80a07dae.jpg" style="height: 60%" width="60%">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Join the Movement</h2>
+                <p class="section-subtitle">Stay updated on new drops, exclusive releases, and community events. Be part of the Illusive revolution.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <p>Gaborone, Botswana</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">
+                            <h4>Phone</h4>
+                            <p>+267<span lang="en-gb"> 75 649 681</span></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>info@illusivebotswana.com</p>
+                        </div>
+                    </div>
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a class="social-link" href="https://www.instagram.com/illusive.bw?igsh=MXdndm4zbmZ3Z2Y0Mg==">IG</a>
+                        <a href="#" class="social-link">TW</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Tell us about your vision..."></textarea>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>keep it exclusive<br>stay <span class="auto-style4">illusive</span></h2>
+            <p>Limited quantities available. Join the waitlist for exclusive access to our next drop and be among the first to represent authentic streetwear.</p>
+            <form class="cta-form">
+                <input type="email" placeholder="Enter your email" class="email-input" required>
+                <button type="submit" class="join-btn">Join Waitlist</button>
+            </form>
+            <p class="privacy">We respect your privacy. No spam, ever.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="footer-logo-icon">T</div>
+                        <span class="auto-style4">ILLUSIVE
+                    </span>
+                    </div>
+                    <p>Atlanta streetwear reimagined. Y2K aesthetics meet modern minimalism. For those who keep it exclusive and stay illusive.</p>
+                    <div class="social-links">
+                        <a class="social-link" href="https://www.instagram.com/illusive.bw?igsh=MXdndm4zbmZ3Z2Y0Mg==">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Collection</h4>
+                    <a href="#">T-Shirts</a>
+                    <a href="#">Hoodies</a>
+                    <a href="#">Pants</a>
+                    <a href="#">Jackets</a>
+                    <a href="#">Accessories</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <a href="#">Size Guide</a>
+                    <a href="#">Shipping</a>
+                    <a href="#">Returns</a>
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 <span class="auto-style8">ILLUSIVE</span> Botswana. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div class="modal-admin" id="adminModal">
+        <div class="admin-content">
+            <div class="admin-header">
+                <h2>Admin Login</h2>
+                <span class="close-btn" id="closeAdminModal">&times;</span>
+            </div>
+            <form id="adminLoginForm">
+                <div class="admin-form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" required placeholder="admin">
+                </div>
+                <div class="admin-form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required placeholder="Illusive@2025">
+                </div>
+                <div class="admin-error" id="adminError">Invalid username or password.</div>
+                <button type="submit" class="admin-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard">
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h2>Admin Dashboard</h2>
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>Site Status</h3>
+                <div class="site-status">
+                    <span>Current Status:</span>
+                    <span id="siteStatus" class="active">Active</span>
+                </div>
+                <button class="toggle-btn lock" id="toggleSiteBtn">Lock Website</button>
+                <button class="toggle-btn unlock" id="unlockSiteBtn" disabled>Unlock Website</button>
+            </div>
+
+            <div class="dashboard-section">
+                <h3>Bank Account Details</h3>
+                <div class="bank-details">
+                    <p><strong>Account Holder:</strong> TROY MOTHEI ANDERSON</p>
+                    <p><strong>Account Number:</strong> 9060005912542</p>
+                    <p><strong>Branch Code:</strong> 065167</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stripe JS Script (Mockup - Will NOT Process Payments Without Backend) -->
+    <script src="test1.dat"></script>
+    <script>
+        // Shopping Cart Functionality
+        let cart = [];
+        let cartCount = 0;
+        let currentProduct = null;
+        let isWebsiteLocked = false;
+
+        // Shipping rates
+        const shippingRates = {
+            'Botswana': 50,
+            'South Africa': 120,
+            'Zimbabwe': 120,
+            'Namibia': 120,
+            'Zambia': 120,
+            'Other': 280
+        };
+        let shippingCost = 0;
+
+        // DOM Elements
+        const productModal = document.getElementById('productModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalProductName = document.getElementById('modalProductName');
+        const modalProductPrice = document.getElementById('modalProductPrice');
+        const modalProductImage = document.getElementById('modalProductImage');
+        const sizeOptions = document.querySelectorAll('.size-option');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const quantity = document.getElementById('quantity');
+        const decreaseQty = document.getElementById('decreaseQty');
+        const increaseQty = document.getElementById('increaseQty');
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartOverlay = document.getElementById('cartOverlay');
+        const closeCart = document.getElementById('closeCart');
+        const cartItems = document.getElementById('cartItems');
+        const cartSubtotal = document.getElementById('cartSubtotal');
+        const cartShipping = document.getElementById('cartShipping');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCountElement = document.querySelector('.cart-count');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        const checkoutModal = document.getElementById('checkoutModal');
+        const closeCheckout = document.getElementById('closeCheckout');
+        const checkoutForm = document.getElementById('checkoutForm');
+        const stripeButton = document.getElementById('stripeButton');
+        const orderTotalDisplay = document.getElementById('orderTotal');
+
+        // Admin elements
+        const adminLoginLink = document.getElementById('adminLoginLink');
+        const adminModal = document.getElementById('adminModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminError = document.getElementById('adminError');
+        const adminDashboard = document.getElementById('adminDashboard');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const toggleSiteBtn = document.getElementById('toggleSiteBtn');
+        const unlockSiteBtn = document.getElementById('unlockSiteBtn');
+        const siteStatus = document.getElementById('siteStatus');
+
+        // Admin credentials
+        const ADMIN_CREDENTIALS = { username: "admin", password: "Illusive@2025" };
+
+        // Stripe setup (Mock)
+        // In a real app, you'd initialize Stripe with your publishable key
+        // const stripe = Stripe('your_publishable_key_here');
+
+        // Product selection
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => {
+            product.addEventListener('click', () => {
+                currentProduct = {
+                    id: product.dataset.id,
+                    name: product.dataset.name,
+                    price: parseFloat(product.dataset.price),
+                    image: product.dataset.image
+                };
+                // Update modal content
+                modalProductName.textContent = currentProduct.name;
+                modalProductPrice.textContent = `P${currentProduct.price}`;
+                modalProductImage.src = currentProduct.image;
+                // Reset selections
+                resetSelections();
+                // Show modal
+                productModal.style.display = 'flex';
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            productModal.style.display = 'none';
+        });
+        productModal.addEventListener('click', (e) => {
+            if (e.target === productModal) {
+                productModal.style.display = 'none';
+            }
+        });
+
+        // Size selection
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Color selection
+        colorOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                colorOptions.forEach(opt => opt.classList.remove('selected'));
+                option.classList.add('selected');
+            });
+        });
+
+        // Quantity control
+        decreaseQty.addEventListener('click', () => {
+            if (parseInt(quantity.value) > 1) {
+                quantity.value = parseInt(quantity.value) - 1;
+            }
+        });
+        increaseQty.addEventListener('click', () => {
+            quantity.value = parseInt(quantity.value) + 1;
+        });
+
+        // Reset selections
+        function resetSelections() {
+            sizeOptions.forEach(opt => opt.classList.remove('selected'));
+            colorOptions.forEach(opt => opt.classList.remove('selected'));
+            quantity.value = 1;
+        }
+
+        // Add to cart
+        addToCartBtn.addEventListener('click', () => {
+            if (!currentProduct) return;
+            const selectedSize = document.querySelector('.size-option.selected');
+            const selectedColor = document.querySelector('.color-option.selected');
+            if (!selectedSize || !selectedColor) {
+                alert('Please select size and color');
+                return;
+            }
+            const item = {
+                id: currentProduct.id,
+                name: currentProduct.name,
+                price: currentProduct.price,
+                image: currentProduct.image,
+                size: selectedSize.dataset.size,
+                color: selectedColor.dataset.color,
+                quantity: parseInt(quantity.value)
+            };
+            const existingItem = cart.find(cartItem => 
+                cartItem.id === item.id && 
+                cartItem.size === item.size && 
+                cartItem.color === item.color
+            );
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+            updateCart();
+            productModal.style.display = 'none';
+        });
+
+        // Update cart
+        function updateCart() {
+            cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCountElement.textContent = cartCount;
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+            } else {
+                cartItems.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-item-img">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-details">Size: ${item.size}, Color: ${item.color}</div>
+                            <div class="cart-item-price">P${item.price} × ${item.quantity}</div>
+                        </div>
+                        <div class="cart-item-remove" data-index="${index}">✕</div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+                document.querySelectorAll('.cart-item-remove').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = e.target.dataset.index;
+                        cart.splice(index, 1);
+                        updateCart();
+                    });
+                });
+            }
+
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            cartSubtotal.textContent = `P${subtotal}`;
+            cartTotal.textContent = `P${subtotal}`;
+
+            // Update shipping based on country
+            const countrySelect = document.getElementById('country');
+            if (countrySelect && countrySelect.value) {
+                shippingCost = shippingRates[countrySelect.value] || 0;
+                cartShipping.textContent = `P${shippingCost}`;
+                cartTotal.textContent = `P${subtotal + shippingCost}`;
+            } else {
+                cartShipping.textContent = 'Free';
+                cartTotal.textContent = `P${subtotal}`;
+            }
+
+            // Update Stripe button amount
+            stripeButton.textContent = `Pay P${subtotal + shippingCost} Now`;
+        }
+
+        // Cart icon click
+        cartIcon.addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+            cartOverlay.classList.add('open');
+        });
+
+        // Close cart
+        closeCart.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('open');
+        });
+        cartOverlay.addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+            cartOverlay.classList.remove('open');
+        });
+
+        // Checkout
+        checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+            if (isWebsiteLocked) {
+                alert('The website is currently locked. Please contact the administrator.');
+                return;
+            }
+            checkoutModal.style.display = 'flex';
+            updateOrderSummary();
+        });
+
+        // Close checkout
+        closeCheckout.addEventListener('click', () => {
+            checkoutModal.style.display = 'none';
+        });
+        checkoutModal.addEventListener('click', (e) => {
+            if (e.target === checkoutModal) {
+                checkoutModal.style.display = 'none';
+            }
+        });
+
+        // Update order summary
+        function updateOrderSummary() {
+            const orderItems = document.getElementById('orderItems');
+            orderItems.innerHTML = '';
+            cart.forEach(item => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <span>${item.name} × ${item.quantity}</span>
+                    <span>P${item.price * item.quantity}</span>
+                `;
+                orderItems.appendChild(orderItem);
+            });
+
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const countrySelect = document.getElementById('country');
+            const selectedCountry = countrySelect.value;
+            shippingCost = shippingRates[selectedCountry] || 0;
+
+            const shippingRow = document.createElement('div');
+            shippingRow.className = 'order-item';
+            shippingRow.innerHTML = `
+                <span>Shipping (${selectedCountry || 'Unknown'})</span>
+                <span>P${shippingCost}</span>
+            `;
+            orderItems.appendChild(shippingRow);
+
+            const finalTotal = subtotal + shippingCost;
+            orderTotalDisplay.textContent = `P${finalTotal}`;
+            stripeButton.textContent = `Pay P${finalTotal} Now`;
+        }
+
+        // Mock Stripe Button Click (Simulates redirection)
+        stripeButton.addEventListener('click', () => {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const finalTotal = subtotal + shippingCost;
+            alert(`Thank you! You would now be redirected to Stripe's secure payment page.\n\nAmount: P${finalTotal}\n\nIn a real implementation, this would use Stripe.js and a backend server to create a payment session.`);
+        });
+
+        // Form submission (Bank Transfer)
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const finalTotal = subtotal + shippingCost;
+            alert(`Order placed successfully!\n\nTotal: P${finalTotal}\n\nPayment Method: Bank Transfer\n\nPlease transfer funds to:\n\nAccount Holder: TROY MOTHEI ANDERSON\nAccount Number: 9060005912542\nBranch Code: 065167\n\nThen email your payment receipt to info@illusivebotswana.com`);
+            cart = [];
+            updateCart();
+            checkoutModal.style.display = 'none';
+            checkoutForm.reset();
+        });
+
+        // Admin Login Modal
+        adminLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            adminModal.style.display = 'flex';
+        });
+
+        closeAdminModal.addEventListener('click', () => {
+            adminModal.style.display = 'none';
+            adminError.style.display = 'none';
+        });
+
+        adminModal.addEventListener('click', (e) => {
+            if (e.target === adminModal) {
+                adminModal.style.display = 'none';
+                adminError.style.display = 'none';
+            }
+        });
+
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('adminUsername').value;
+            const password = document.getElementById('adminPassword').value;
+
+            if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                adminModal.style.display = 'none';
+                adminError.style.display = 'none';
+                adminDashboard.style.display = 'flex';
+            } else {
+                adminError.style.display = 'block';
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            adminDashboard.style.display = 'none';
+        });
+
+        // Site Lock/Unlock
+        toggleSiteBtn.addEventListener('click', () => {
+            isWebsiteLocked = true;
+            siteStatus.textContent = 'Locked';
+            siteStatus.className = '';
+            siteStatus.classList.add('active');
+            toggleSiteBtn.disabled = true;
+            unlockSiteBtn.disabled = false;
+            alert("The website has been locked. Customers cannot make purchases.");
+        });
+
+        unlockSiteBtn.addEventListener('click', () => {
+            isWebsiteLocked = false;
+            siteStatus.textContent = 'Active';
+            siteStatus.className = '';
+            siteStatus.classList.add('active');
+            toggleSiteBtn.disabled = false;
+            unlockSiteBtn.disabled = true;
+            alert("The website has been unlocked. Customers can now make purchases.");
+        });
+
+        // Initialize site status
+        siteStatus.textContent = 'Active';
+        siteStatus.className = '';
+        siteStatus.classList.add('active');
+
+        // Update shipping when country changes
+        document.getElementById('country').addEventListener('change', updateOrderSummary);
+
+        // Prevent checkout if locked
+        checkoutBtn.addEventListener('click', () => {
+            if (isWebsiteLocked) {
+                alert('The website is currently locked. Please contact the administrator.');
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
